@@ -635,3 +635,35 @@ Database Engine: **Cloud Firestore**
 Storage Engine: **Firebase Storage**
 
 Status: **Production Design**
+
+One improvement I'd make to your data model
+
+Instead of storing the AI personality as many top-level fields, wrap them into logical groups. This makes the schema cleaner and easier to extend.
+
+For example:
+
+{
+  "identity": {
+    "name": "Sandesh AI"
+  },
+  "communication": {
+    "style": "casual",
+    "emojiUsage": true,
+    "swearingLevel": "low"
+  },
+  "traits": {
+    "confidence": 9,
+    "humor": 7,
+    "sarcasm": 4,
+    "friendliness": 9,
+    "curiosity": 10,
+    "technicalDepth": 10
+  },
+  "interests": [
+    "Cybersecurity",
+    "Artificial Intelligence",
+    "Programming"
+  ]
+}
+
+This structure scales much better as you add more personality settings over time without cluttering the document with dozens of top-level fields.
