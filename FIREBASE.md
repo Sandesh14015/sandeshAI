@@ -751,3 +751,19 @@ Backend: **Firebase**
 Deployment: **Next.js + Firebase Backend**
 
 Architecture Status: **Active**
+
+One architectural improvement I strongly recommend
+
+Next.js UI
+      │
+      ▼
+Chat Service
+      │
+      ▼
+Cloud Function (Future)
+      │
+      ▼
+AI Provider Interface
+      │
+      ▼
+OpenAI / Gemini / Claude
