@@ -9,7 +9,8 @@ export function TypingIndicator() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      whileHover={{ y: -1, scale: 1.005 }}
       className="flex justify-start"
     >
       <div className="flex max-w-[85%] items-start gap-3 rounded-[24px] border border-white/10 bg-slate-900/80 px-4 py-3">

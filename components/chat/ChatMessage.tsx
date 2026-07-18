@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import { motion } from "framer-motion";
@@ -63,8 +64,9 @@ export function ChatMessage({
               <ReactMarkdown
                 rehypePlugins={[rehypeHighlight]}
                 components={{
-                  code({ inline, className, children, ...props }) {
+                  code({ className, children, ...props }: ComponentPropsWithoutRef<"code"> & { children?: ReactNode }) {
                     const content = String(children).replace(/\n$/, "");
+                    const inline = !String(className || "").includes("language-");
 
                     if (inline) {
                       return (

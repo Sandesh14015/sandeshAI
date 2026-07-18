@@ -48,7 +48,7 @@ export function ConversationHistory({ activeConversationId, onSelectConversation
 
       const mapped = await Promise.all(
         rawConversations.map(async (conversation) => {
-          const messages = await messagesService.listMessages(user.uid, conversation.id as string);
+          const messages = (await messagesService.listMessages(user.uid, conversation.id as string)) as Array<{ content?: string }>;
           const lastMessage = messages.at(-1)?.content ?? "No messages yet";
           return {
             id: conversation.id as string,
