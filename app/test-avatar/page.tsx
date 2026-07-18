@@ -1,5 +1,5 @@
 import { Avatar } from "@/components/avatar/Avatar";
-import { Mood } from "@/services/avatarService";
+import { Mood } from "@/lib/mood";
 
 export default function TestAvatarPage() {
   return (

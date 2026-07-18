@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Avatar } from "@/components/ui/Avatar";
+import { AIAvatar } from "@/components/avatar/AIAvatar";
+import { Mood } from "@/lib/mood";
 
 export function TypingIndicator() {
   return (
@@ -13,8 +14,8 @@ export function TypingIndicator() {
       whileHover={{ y: -1, scale: 1.005 }}
       className="flex justify-start"
     >
-      <div className="flex max-w-[85%] items-start gap-3 rounded-[24px] border border-white/10 bg-slate-900/80 px-4 py-3">
-        <Avatar size="small" alt="Sandesh AI" />
+      <div className="flex max-w-[85%] items-start gap-3 rounded-[24px] border border-white/10 bg-slate-900/80 px-4 py-3 shadow-[0_12px_40px_rgba(2,6,23,0.22)]">
+        <AIAvatar mood={Mood.Thinking} size={32} />
         <div className="flex flex-col gap-2">
           <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-500">Sandesh AI</p>
           <div className="flex items-center gap-2">

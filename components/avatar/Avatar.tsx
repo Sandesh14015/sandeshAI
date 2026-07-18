@@ -1,5 +1,7 @@
-import Image from "next/image";
-import { AvatarService, Mood } from "@/services/avatarService";
+"use client";
+
+import { AIAvatar } from "@/components/avatar/AIAvatar";
+import { Mood } from "@/lib/mood";
 
 type AvatarProps = {
   mood?: Mood | string;
@@ -8,20 +10,5 @@ type AvatarProps = {
 };
 
 export function Avatar({ mood = Mood.Neutral, size = 64, className }: AvatarProps) {
-  const src = AvatarService.getAvatarPath(mood);
-
-  return (
-    <Image
-      src={src}
-      alt={`${mood} avatar`}
-      width={size}
-      height={size}
-      className={className}
-      unoptimized
-      onError={(event) => {
-        const target = event.currentTarget as HTMLImageElement;
-        target.src = AvatarService.getAvatarPath(Mood.Neutral);
-      }}
-    />
-  );
+  return <AIAvatar mood={mood} size={size} className={className} alt={`${mood} avatar`} />;
 }

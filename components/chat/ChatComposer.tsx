@@ -44,7 +44,7 @@ export function ChatComposer({ onSend }: ChatComposerProps) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, ease: "easeOut" }} className="sticky bottom-0 border-t border-white/10 bg-slate-950/80 p-3 backdrop-blur sm:p-4">
-      <motion.div whileHover={{ y: -1, scale: 1.002 }} className="mx-auto max-w-3xl rounded-[28px] border border-white/10 bg-slate-900/85 p-2 shadow-[0_10px_50px_rgba(0,0,0,0.35)] sm:p-3">
+      <motion.div whileHover={{ y: -1, scale: 1.002 }} className="mx-auto max-w-3xl rounded-[28px] border border-white/10 bg-slate-900/85 p-2 shadow-[0_18px_70px_rgba(2,6,23,0.45)] sm:p-3">
         <motion.div animate={{ boxShadow: isFocused ? "0 0 0 1px rgba(125,211,252,0.25)" : "0 0 0 0 rgba(255,255,255,0)" }} transition={{ duration: 0.2 }} className="flex items-start gap-2 rounded-[24px] border border-white/10 bg-slate-950/70 px-3 py-2">
           <textarea
             ref={textareaRef}

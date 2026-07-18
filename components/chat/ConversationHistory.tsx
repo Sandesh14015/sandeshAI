@@ -48,12 +48,13 @@ export function ConversationHistory({ activeConversationId, onSelectConversation
 
       const mapped = await Promise.all(
         rawConversations.map(async (conversation) => {
-          const messages = (await messagesService.listMessages(user.uid, conversation.id as string)) as Array<{ content?: string }>;
+          const conversationData = conversation as { id: string; title?: string; updatedAt?: number | string | Date };
+          const messages = (await messagesService.listMessages(user.uid, conversationData.id)) as Array<{ content?: string }>;
           const lastMessage = messages.at(-1)?.content ?? "No messages yet";
           return {
-            id: conversation.id as string,
-            title: (conversation.title as string) ?? "Untitled conversation",
-            updatedAt: conversation.updatedAt as number | string | Date | undefined,
+            id: conversationData.id,
+            title: conversationData.title ?? "Untitled conversation",
+            updatedAt: conversationData.updatedAt,
             lastMessage: typeof lastMessage === "string" ? lastMessage : "No messages yet",
           };
         }),

@@ -7,6 +7,8 @@ import rehypeHighlight from "rehype-highlight";
 import { motion } from "framer-motion";
 import { Copy, Check } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
+import { AIAvatar } from "@/components/avatar/AIAvatar";
+import { MoodService, type Mood } from "@/lib/mood";
 
 export type ChatMessageRole = "assistant" | "user";
 
@@ -16,6 +18,7 @@ export type ChatMessageProps = {
   timestamp?: string;
   showAuthor?: boolean;
   authorName?: string;
+  mood?: Mood | string;
   className?: string;
 };
 
@@ -25,11 +28,16 @@ export function ChatMessage({
   timestamp,
   showAuthor = false,
   authorName = role === "assistant" ? "Sandesh AI" : "You",
+  mood,
   className,
 }: ChatMessageProps) {
   const [copied, setCopied] = useState(false);
 
   const isAssistant = role === "assistant";
+  const avatarMood = useMemo(
+    () => mood ?? new MoodService().detectMood(content),
+    [content, mood],
+  );
 
   const formattedTimestamp = useMemo(() => {
     if (timestamp) return timestamp;
@@ -49,7 +57,7 @@ export function ChatMessage({
       transition={{ duration: 0.2 }}
       className={`flex ${isAssistant ? "justify-start" : "justify-end"} ${className ?? ""}`}
     >
-      <div className={`flex max-w-[85%] flex-col gap-2 ${isAssistant ? "items-start" : "items-end"}`}>
+      <div className={`flex max-w-[90%] flex-col gap-2 ${isAssistant ? "items-start" : "items-end"}`}>
         {showAuthor ? (
           <div className={`text-xs font-medium uppercase tracking-[0.24em] text-slate-500 ${isAssistant ? "self-start" : "self-end"}`}>
             {authorName}
@@ -57,9 +65,9 @@ export function ChatMessage({
         ) : null}
 
         <div className={`flex items-start gap-3 ${isAssistant ? "flex-row" : "flex-row-reverse"}`}>
-          {isAssistant ? <Avatar size="small" alt="Sandesh AI" /> : <Avatar size="small" alt="You" />}
+          {isAssistant ? <AIAvatar mood={avatarMood} size={32} /> : <Avatar size="small" alt="You" />}
 
-          <div className={`rounded-[24px] border px-4 py-3 shadow-sm ${isAssistant ? "border-white/10 bg-slate-900/80 text-slate-100" : "border-sky-500/20 bg-sky-600/90 text-white"}`}>
+          <div className={`rounded-[24px] border px-4 py-3 shadow-[0_12px_40px_rgba(2,6,23,0.22)] ${isAssistant ? "border-white/10 bg-slate-900/80 text-slate-100" : "border-sky-500/20 bg-gradient-to-br from-sky-600 to-sky-500 text-white"}`}>
             <div className="prose prose-invert max-w-none prose-p:my-2 prose-headings:mt-3 prose-headings:mb-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-1 prose-blockquote:border-l-sky-500 prose-blockquote:pl-3 prose-blockquote:italic prose-table:border prose-table:border-slate-700 prose-th:p-2 prose-td:p-2 prose-pre:overflow-x-auto prose-pre:rounded-xl prose-pre:border prose-pre:border-white/10 prose-pre:bg-slate-950/80 prose-pre:p-3 prose-code:rounded prose-code:bg-white/10 prose-code:px-1 prose-code:py-0.5">
               <ReactMarkdown
                 rehypePlugins={[rehypeHighlight]}

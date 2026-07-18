@@ -16,23 +16,23 @@ import { db } from "@/firebase";
 export type FirestoreDocument = Record<string, unknown>;
 
 async function createDocument(path: string[], data: FirestoreDocument) {
-  const ref = doc(db, ...path);
+  const ref = doc(db, ...(path as [string, ...string[]]));
   await setDoc(ref, data, { merge: true });
   return ref;
 }
 
 async function readDocument(path: string[]) {
-  const ref = doc(db, ...path);
+  const ref = doc(db, ...(path as [string, ...string[]]));
   const snapshot = await getDoc(ref);
   return snapshot.exists() ? { id: snapshot.id, ...snapshot.data() } : null;
 }
 
 async function readCollection(path: string[], filters?: Array<{ field: string; op: "=="; value: unknown }>) {
-  let q = query(collection(db, ...path));
+  let q = query(collection(db, ...(path as [string, ...string[]])));
 
   if (filters?.length) {
     q = query(
-      collection(db, ...path),
+      collection(db, ...(path as [string, ...string[]])),
       ...filters.map((filter) => where(filter.field, filter.op, filter.value)),
     );
   }
@@ -42,13 +42,13 @@ async function readCollection(path: string[], filters?: Array<{ field: string; o
 }
 
 async function updateDocument(path: string[], data: FirestoreDocument) {
-  const ref = doc(db, ...path);
+  const ref = doc(db, ...(path as [string, ...string[]]));
   await updateDoc(ref, data);
   return ref;
 }
 
 async function deleteDocument(path: string[]) {
-  const ref = doc(db, ...path);
+  const ref = doc(db, ...(path as [string, ...string[]]));
   await deleteDoc(ref);
 }
 

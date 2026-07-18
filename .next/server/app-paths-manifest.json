@@ -1,12 +1,12 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/test-avatar/page": "app/test-avatar/page.js",
-  "/demo-mood/page": "app/demo-mood/page.js",
-  "/login/page": "app/login/page.js",
   "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/demo-mood/page": "app/demo-mood/page.js",
+  "/(dashboard)/chat/page": "app/(dashboard)/chat/page.js",
+  "/(dashboard)/personality/page": "app/(dashboard)/personality/page.js",
   "/(dashboard)/knowledge/page": "app/(dashboard)/knowledge/page.js",
   "/(dashboard)/settings/page": "app/(dashboard)/settings/page.js",
-  "/(dashboard)/personality/page": "app/(dashboard)/personality/page.js",
-  "/(dashboard)/memories/page": "app/(dashboard)/memories/page.js",
-  "/(dashboard)/chat/page": "app/(dashboard)/chat/page.js"
+  "/(dashboard)/memories/page": "app/(dashboard)/memories/page.js"
 }

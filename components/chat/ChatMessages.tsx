@@ -1,8 +1,10 @@
-import { Avatar } from "@/components/ui/Avatar";
+import { AIAvatar } from "@/components/avatar/AIAvatar";
+import { Mood } from "@/lib/mood";
 
 const sampleMessages = [
   {
     role: "assistant",
+    mood: Mood.Helpful,
     text: "Welcome back. I’m here to help you shape your digital twin experience.",
   },
   {
@@ -18,7 +20,7 @@ export function ChatMessages() {
         {sampleMessages.map((message, index) => (
           <div key={`${message.role}-${index}`} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
             <div className={`flex max-w-[80%] items-start gap-3 rounded-[24px] border border-white/10 bg-white/5 px-4 py-3 ${message.role === "user" ? "bg-white/10" : "bg-slate-900/70"}`}>
-              {message.role === "assistant" ? <Avatar size="small" alt="Sandesh AI" /> : null}
+              {message.role === "assistant" ? <AIAvatar mood={message.mood} size={32} /> : null}
               <p className="text-sm leading-7 text-slate-200">{message.text}</p>
             </div>
           </div>
