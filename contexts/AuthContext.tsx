@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { User } from "firebase/auth";
 import { firebaseAuth } from "@/firebase";
 import type { AuthUser } from "@/types/auth";
@@ -40,21 +40,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = useCallback(async () => {
     await firebaseAuth.signInWithGoogle();
-  };
+  }, []);
 
-  const signInWithEmail = async (email: string, password: string) => {
+  const signInWithEmail = useCallback(async (email: string, password: string) => {
     await firebaseAuth.signInWithEmail(email, password);
-  };
+  }, []);
 
-  const signUpWithEmail = async (email: string, password: string) => {
+  const signUpWithEmail = useCallback(async (email: string, password: string) => {
     await firebaseAuth.signUpWithEmail(email, password);
-  };
+  }, []);
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     await firebaseAuth.signOut();
-  };
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -65,7 +65,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signUpWithEmail,
       signOut,
     }),
-    [user, loading],
+    [user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

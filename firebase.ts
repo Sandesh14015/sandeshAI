@@ -1,5 +1,16 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged, User } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut as firebaseSignOut,
+  onAuthStateChanged,
+  browserLocalPersistence,
+  setPersistence,
+  type User,
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -21,16 +32,23 @@ export const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({ prompt: "select_account" });
 
+async function persistSession() {
+  await setPersistence(auth, browserLocalPersistence);
+}
+
 export const firebaseAuth = {
   async signInWithGoogle() {
+    await persistSession();
     return signInWithPopup(auth, googleProvider);
   },
 
   async signInWithEmail(email: string, password: string) {
+    await persistSession();
     return signInWithEmailAndPassword(auth, email, password);
   },
 
   async signUpWithEmail(email: string, password: string) {
+    await persistSession();
     return createUserWithEmailAndPassword(auth, email, password);
   },
 
